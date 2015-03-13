@@ -217,12 +217,12 @@ InfoBubble.prototype.buildDom_ = function() {
   tabsContainer.style['position'] = 'relative';
 
   // Close button
-  var close = this.close_ = document.createElement('IMG');
+  var close = this.close_ = document.createElement('DIV');
   close.style['position'] = 'absolute';
   close.style['border'] = 0;
   close.style['zIndex'] = this.baseZIndex_ + 1;
   close.style['cursor'] = 'pointer';
-  close.src = this.get('closeSrc');
+  close.innerHTML = this.get('closeSrc');
 
   var that = this;
   google.maps.event.addDomListener(close, 'click', function() {
@@ -776,7 +776,7 @@ InfoBubble.prototype['setPadding'] = InfoBubble.prototype.setPadding;
  */
 InfoBubble.prototype.setCloseSrc = function(src) {
   if (src && this.close_) {
-    this.close_.src = src;
+    this.close_.innerHTML = src;
   }
 };
 InfoBubble.prototype['setCloseSrc'] = InfoBubble.prototype.setCloseSrc;
