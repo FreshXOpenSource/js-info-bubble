@@ -33,6 +33,21 @@
  * @extends {google.maps.OverlayView}
  * @constructor
  */
+function ValidURL(str) {
+  var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+    '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
+    '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
+    '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
+    '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
+    '(\#[-a-z\d_]*)?$','i'); // fragment locater
+  if(!pattern.test(str)) {
+    return false;
+  } else {
+    return true;
+  }
+} 
+ 
+ 
 function InfoBubble(opt_options) {
   this.extend(InfoBubble, google.maps.OverlayView);
   this.tabs_ = [];
@@ -217,12 +232,12 @@ InfoBubble.prototype.buildDom_ = function() {
   tabsContainer.style['position'] = 'relative';
 
   // Close button
-  var close = this.close_ = document.createElement('IMG');
+  var close = this.close_ = document.createElement('DIV') :;
   close.style['position'] = 'absolute';
   close.style['border'] = 0;
   close.style['zIndex'] = this.baseZIndex_ + 1;
   close.style['cursor'] = 'pointer';
-  close.src = this.get('closeSrc');
+  close.innerHTML = this.get('closeSrc');
 
   var that = this;
   google.maps.event.addDomListener(close, 'click', function() {
@@ -776,7 +791,7 @@ InfoBubble.prototype['setPadding'] = InfoBubble.prototype.setPadding;
  */
 InfoBubble.prototype.setCloseSrc = function(src) {
   if (src && this.close_) {
-    this.close_.src = src;
+    this.close_.innerHTML = src;
   }
 };
 InfoBubble.prototype['setCloseSrc'] = InfoBubble.prototype.setCloseSrc;
